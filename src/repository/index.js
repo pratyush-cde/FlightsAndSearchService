@@ -1,4 +1,3 @@
-const { where } = require("sequelize");
 const { City } = require("../models/index");
 
 class CityRepository {
@@ -19,6 +18,7 @@ class CityRepository {
           id: cityId,
         },
       });
+
       return true;
     } catch (error) {
       console.log("Something went wrong in the repository layer");
@@ -33,6 +33,7 @@ class CityRepository {
           id: cityId,
         },
       });
+
       return city;
     } catch (error) {
       console.log("Something went wrong in the repository layer");
@@ -42,12 +43,16 @@ class CityRepository {
 
   async getCity(cityId) {
     try {
-      const city = await City.findByPK(cityId);
+      const city = await City.findByPk(cityId);
+
+      return city;
     } catch (error) {
-      console.log("Something went wrong in the repositiry");
+      console.log("Something went wrong in the repository layer");
       throw { error };
     }
   }
 }
 
-module.exports = CityRepository;
+module.exports = {
+  CityRepository,
+};
