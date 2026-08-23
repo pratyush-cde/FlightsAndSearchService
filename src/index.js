@@ -3,7 +3,7 @@ const { PORT, SYNC_DB } = require("./config/serverConfig.js");
 const bodyParser = require("body-parser");
 
 const apiRoutes = require("./routes");
-const { Airport, City } = require("./models/index.js");
+const { Airport, City, Airplane } = require("./models/index.js");
 const sequelize = require("sequelize");
 const db = require("./models");
 const setupAndStartServer = async () => {
@@ -19,6 +19,10 @@ const setupAndStartServer = async () => {
     if (process.env.SYNC_DB === "true") {
       db.sequelize.sync({ alter: true });
     }
+
+    await Airplane.create({
+      modelNumber: "Bombardier CRJ",
+    });
   });
 };
 
