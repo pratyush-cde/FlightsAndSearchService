@@ -1,9 +1,11 @@
 const express = require("express");
-const { PORT } = require("./config/serverConfig.js");
+const { PORT, SYNC_DB } = require("./config/serverConfig.js");
 const bodyParser = require("body-parser");
 
 const apiRoutes = require("./routes");
-
+const { Airport, City } = require("./models/index.js");
+const sequelize = require("sequelize");
+const db = require("./models");
 const setupAndStartServer = async () => {
   const app = express();
 
@@ -12,8 +14,11 @@ const setupAndStartServer = async () => {
 
   app.use("/api", apiRoutes);
 
-  app.listen(PORT, () => {
+  app.listen(PORT, async () => {
     console.log(`server started at : ${PORT}`);
+    if (process.env.SYNC_DB === "true") {
+      db.sequelize.sync({ alter: true });
+    }
   });
 };
 
