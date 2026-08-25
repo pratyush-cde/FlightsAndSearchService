@@ -9,7 +9,7 @@ class FlightService {
 
   async createFlight(data) {
     try {
-      if (!comapreTime(data.arivalTime, data.departureTime)) {
+      if (!comapreTime(data.arrivalTime, data.departureTime)) {
         throw { error: "arrival time must be greater than departure time" };
       }
 
@@ -31,6 +31,16 @@ class FlightService {
     try {
       const flight = await this.flightRepository.getFlight(id);
       return flight;
+    } catch (error) {
+      console.log("Something went wrong at service layer");
+      throw { error };
+    }
+  }
+
+  async getAllFlightData(data) {
+    try {
+      const flights = await this.flightRepository.getAllFlights(data);
+      return flights;
     } catch (error) {
       console.log("Something went wrong at service layer");
       throw { error };
