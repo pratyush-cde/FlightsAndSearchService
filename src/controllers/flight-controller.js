@@ -32,12 +32,12 @@ const getAll = async (req, res) => {
       message: "Successfully fetched the flights",
     });
   } catch (error) {
-    console.log(error);
+    console.log("Airport Controller Error:", error);
+
     return res.status(500).json({
-      data: {},
       success: false,
-      message: "not able to find flights",
-      err: error,
+      message: error.message || "Something went wrong",
+      error,
     });
   }
 };
