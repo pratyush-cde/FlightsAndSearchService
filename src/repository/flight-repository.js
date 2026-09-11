@@ -33,7 +33,7 @@ class FlightRepository {
       return flight;
     } catch (error) {
       console.log("error occured at repository layer");
-      throw { error };
+      throw error;
     }
   }
 
@@ -43,7 +43,7 @@ class FlightRepository {
       return flight;
     } catch (error) {
       console.log("error occured at repository layer");
-      throw { error };
+      throw error;
     }
   }
 
@@ -56,7 +56,20 @@ class FlightRepository {
       return flight;
     } catch (error) {
       console.log("error occured at repository layer");
-      throw { error };
+      throw error;
+    }
+  }
+
+  async updateFlights(fightId, data) {
+    try {
+      await Flights.update(data, {
+        where: {
+          id: fightId,
+        },
+      });
+    } catch (error) {
+      console.log("error occured at repository layer");
+      throw error;
     }
   }
 }
