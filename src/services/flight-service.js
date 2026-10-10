@@ -21,6 +21,7 @@ class FlightService {
         ...data,
         totalSeats: airplane.capacity,
       });
+      return flight;
     } catch (error) {
       console.log("Something went wrong at service layer");
       throw { error };
